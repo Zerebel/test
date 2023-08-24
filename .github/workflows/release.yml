@@ -1,33 +1,19 @@
-# create a new release automatically whenever a new tag is pushed using node 16
-name: Release
+# create a new release automatically whenever a new tag is pushed using the following workflow
+name: Create Release
 on:
   push:
     tags:
       - "*"
 jobs:
-  release:
-    name: Release
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16
-      - name: Install Dependencies
-        run: npm ci
-      - name: Release
-        uses: softprops/action-gh-release@v1
+      - name: Create Release
+        uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          files: |
-            package.json
-            package-lock.json
           tag_name: ${{ github.ref }}
-          name: ${{ github.ref }}
-          body: |
-            ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
           draft: false
           prerelease: false
