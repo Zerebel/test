@@ -1,6 +1,7 @@
 const url = "http://localhost:8000/test";
 const data = {
-  msg: "testing",
+  message: "Hello World",
+  index: "testing",
 };
 const headers = {
   "Content-Type": "application/json",
